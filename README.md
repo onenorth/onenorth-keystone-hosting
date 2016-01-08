@@ -1,20 +1,12 @@
 # onenorth-keystone-hosting
 
-[![NPM Version][npm-image]][npm-url]
-[![NPM Downloads][downloads-image]][downloads-url]
-[![Node.js Version][node-version-image]][node-version-url]
-[![Build Status][travis-image]][travis-url]
-[![Test Coverage][coveralls-image]][coveralls-url]
-
 This is an NPM module that provides One North Hosting functionality for KeystoneJS applications.
 
 # Installation
 
 ```sh
-$ npm install https://github.com/onenorth/keystone-hosting/tarball/v1.0.#
+$ npm install https://github.com/onenorth/keystone-hosting/tarball/master
 ```
-
-Note: make sure you choose the latest version of the package.
 
 # API
 

@@ -1,0 +1,23 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>Health Check</title>
+    <meta name="robots" content="noindex, nofollow">
+</head>
+<body>
+    Health Check<br/>
+    General (503.101): {{#if general.pass}}Pass{{else}}Fail{{/if}}<br/>
+    MongoDB (503.102): {{#if mongodb.pass}}Pass{{else}}Fail{{/if}}<br/>
+    {{#if amazon}}
+    Amazon (503.103): {{#if amazon.pass}}Pass{{else}}Fail{{/if}}<br/>
+    {{/if}}
+    {{#if azure}}
+    Azure (503.104): {{#if azure.pass}}Pass{{else}}Fail{{/if}}<br/>
+    {{/if}}
+    {{#if cloudinary}}
+    Cloudinary (503.105): {{#if cloudinary.pass}}Pass{{else}}Fail{{/if}}<br/>
+    {{/if}}
+    Timestamp: {{timestamp}}<br/>
+</body>
+</html>

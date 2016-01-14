@@ -18,7 +18,6 @@ module.exports = function() {
             // Check for IP range allowances.  Requests will be allowed through if the IP address is in range.
             var ipRanges = process.env.ANONYMOUS_ACCESS_BLOCKER_ALLOWED_IP_RANGES;
             if (ipRanges) {
-                console.log(ipRanges);
                 // The set of allowed ranges has to be separated by space
                 // characters or a comma.
                 var allowedRanges = ipRanges.split(/\s+|,/);
@@ -28,7 +27,8 @@ module.exports = function() {
                 // X-Forwarded-For request header. The originating IP address is
                 // the last one in the array.
                 var requestIP = (req.ips.length > 0) ? req.ips.slice().pop() : req.ip;
-                                
+                console.log('Client IP: ' + requestIP);
+                
                 // Deny the request if request IP is not in one of the allowed
                 // IP address ranges.
                 var requestAllowed = range_check.in_range(requestIP, allowedRanges);

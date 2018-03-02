@@ -1,6 +1,6 @@
 {
   "name": "@onenorth/keystone-hosting",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "One North KeystoneJS Hosting",
   "main": "index.js",
   "scripts": {

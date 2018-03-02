@@ -14,7 +14,7 @@ npm install --save @onenorth/keystone-hosting
 
 ```js
 var keystone = require('keystone');
-var hosting = require('onenorth-keystone-hosting');
+var hosting = require('@onenorth/keystone-hosting');
 ...
 keystone.init({
     ...
@@ -50,7 +50,7 @@ LOG41N_PATH={application path}
 
 ```js
 var keystone = require('keystone');
-var hosting = require('onenorth-keystone-hosting');
+var hosting = require('@onenorth/keystone-hosting');
 ...
 keystone.init({
     ...

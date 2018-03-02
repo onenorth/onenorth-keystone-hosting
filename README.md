@@ -5,7 +5,7 @@ This is an NPM module that provides One North Hosting functionality for Keystone
 # Installation
 
 ```sh
-$ npm install https://github.com/onenorth/keystone-hosting/tarball/master --save
+npm install --save @onenorth/keystone-hosting
 ```
 
 # API

@@ -1,5 +1,5 @@
 {
-  "name": "onenorth-keystone-hosting",
+  "name": "@onenorth/keystone-hosting",
   "version": "1.0.0",
   "description": "One North KeystoneJS Hosting",
   "main": "index.js",
@@ -28,5 +28,6 @@
     "oauth": "^0.9.14",
     "range_check": "^1.2.0",
     "request": "^2.67.0"
-  }
+  },
+  "devDependencies": {}
 }

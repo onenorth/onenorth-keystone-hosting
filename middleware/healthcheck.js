@@ -2,7 +2,7 @@
 
 var async = require('async'),
     azure = require('azure-storage'),
-    cloudinary = require('cloudinary'),
+    // cloudinary = require('cloudinary'),
     fs = require('fs'),
     handlebars = require('handlebars'),
     knox = require('knox'),
@@ -62,19 +62,19 @@ module.exports = function(keystone) {
             },
 
             // Test Cloudinary
-            function(callback) {
-                if (keystone.get('cloudinary config')) {
-                    var url = cloudinary.url(process.env.HEALTH_CHECK_CLOUDINARY_TEST_FILE || '');
-                    request(url, function (err, response, body) {
-                        locals.cloudinary = {
-                            pass: (!err && response.statusCode == 200) ? true : false
-                        };
-                        callback();
-                    })
-                } else {
-                    callback();
-                }
-            },
+            // function(callback) {
+            //     if (keystone.get('cloudinary config')) {
+            //         var url = cloudinary.url(process.env.HEALTH_CHECK_CLOUDINARY_TEST_FILE || '');
+            //         request(url, function (err, response, body) {
+            //             locals.cloudinary = {
+            //                 pass: (!err && response.statusCode == 200) ? true : false
+            //             };
+            //             callback();
+            //         })
+            //     } else {
+            //         callback();
+            //     }
+            // },
         
             // Test Azure Files
             function(callback) {

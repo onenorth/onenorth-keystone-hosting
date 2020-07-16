@@ -1,6 +1,6 @@
 'use strict';
 
-var range_check = require('range_check');
+var rangeCheck = require('range_check');
 
 // Anonymous Access Blocker middleware
 module.exports = function() {
@@ -30,7 +30,7 @@ module.exports = function() {
                 
                 // Deny the request if request IP is not in one of the allowed
                 // IP address ranges.
-                var requestAllowed = range_check.in_range(requestIP, allowedRanges);
+                var requestAllowed = rangeCheck.in_range(requestIP, allowedRanges);
                 
                 if (requestAllowed) {
                     // Allow the request to process

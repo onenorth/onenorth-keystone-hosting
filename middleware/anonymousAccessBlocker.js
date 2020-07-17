@@ -41,7 +41,20 @@ module.exports = function() {
 
             // Request is not allowed.  Send the contents of the unauthorized.html file.
             console.log('Blocked IP: ' + requestIP);
-            res.sendfile(__dirname + '/unauthorized.html');
+            
+            //set 'unauthorized' response code
+            res.status(401)
+
+            //discourage anything that might cache this response 
+            res.set('Cache-Control','no-store');
+
+            //for logging
+            res.set('x-oni-type','ksndny');
+
+            //"express deprecated res.sendfile: Use res.sendFile"
+            // res.sendfile(__dirname + '/unauthorized.html');
+
+            res.sendFile(__dirname + '/unauthorized.html');
             return;
         }
 

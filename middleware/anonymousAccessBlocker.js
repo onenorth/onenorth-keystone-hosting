@@ -21,10 +21,7 @@ module.exports = function() {
                 // The set of allowed ranges has to be separated by space characters, a comma, or newline.
                 var allowedRanges = ipRanges.split(/\s+|,|\n/);
                 
-                // Using req.ips requires that express 'trust proxy' setting is
-                // true. When it *is* set the value for ips is extracted from the
-                // X-Forwarded-For request header. The originating IP address is
-                // the last one in the array.
+                //if CLIENT_IP_ADDRESS_HEADER is set and a request coming in does not contain it, it will be denied regardless of IP
                 var requestIP = (process.env.CLIENT_IP_ADDRESS_HEADER) ? req.header(process.env.CLIENT_IP_ADDRESS_HEADER) : req.ip;
                 requestIP = rangeCheck.searchIP(requestIP);
                 
@@ -34,13 +31,13 @@ module.exports = function() {
                 
                 if (requestAllowed) {
                     // Allow the request to process
-                    console.log('Allowed IP: ' + requestIP);
+                    console.log('keystone-hosting: Allowed IP ' + requestIP);
                     return next();
                 }
             }
 
             // Request is not allowed.  Send the contents of the unauthorized.html file.
-            console.log('Blocked IP: ' + requestIP);
+            console.log('keystone-hosting: Blocked IP ' + requestIP);
             
             //set 'unauthorized' response code
             res.status(401)

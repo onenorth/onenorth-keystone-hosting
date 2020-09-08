@@ -12,11 +12,14 @@ var async = require('async'),
 // Health Check middleware
 module.exports = function(keystone) {
 
-    var cache = new NodeCache({ stdTTL: 15, checkperiod: 1 });
+    //10 seconds
+    var cache = new NodeCache({ stdTTL: 10, checkperiod: 1 });
 
     return function(req, res, next) {
         // Bail out if the health check is not enabled.  Process only the HEALTH_CHECK_PATH.
-        if (process.env.HEALTH_CHECK_ENABLED !== 'true' || req.path !== process.env.HEALTH_CHECK_PATH) {
+        // Default to /healthcheck, if enabled.
+        var healthcheckPath = process.env.HEALTH_CHECK_PATH || '/healthcheck'
+        if (process.env.HEALTH_CHECK_ENABLED !== 'true' || req.path !== healthcheckPath) {
             return next();
         }
         
@@ -34,9 +37,13 @@ module.exports = function(keystone) {
         async.parallel([
         
             // Test MongoDB
+             //TODO: consider using keystone.mongoose 
+            // or test keystone.mongoose.connection.readyState
+            // (Did not want to import a specific version mongoose library)
             function(callback) {
                 var users = keystone.list(keystone.get('user model'));
-                users.model.findOne({ email: process.env.HEALTH_CHECK_KEYSTONE_USER_EMAIL }).exec(function(err, user) {    
+                //any user will do
+                users.model.findOne().exec(function(err, user) {    
                     locals.mongodb = {
                         pass: (!err && user) ? true : false
                     };
@@ -47,7 +54,7 @@ module.exports = function(keystone) {
             // Test S3 Bucket
             function(callback) {
                 var s3Config = keystone.get('s3 config')
-                if (s3Config) {
+                if (process.env.HEALTH_CHECK_AMAZON_TEST_FILE && s3Config) {
                     var client = knox.createClient(s3Config);
                     var url = client.http(process.env.HEALTH_CHECK_AMAZON_TEST_FILE || '');
                     request(url, function (err, response, body) {
@@ -63,7 +70,7 @@ module.exports = function(keystone) {
 
             // Test Cloudinary
             function(callback) {
-                if (keystone.get('cloudinary config')) {
+                if (process.env.HEALTH_CHECK_CLOUDINARY_TEST_FILE && keystone.get('cloudinary config')) {
                     var url = cloudinary.url(process.env.HEALTH_CHECK_CLOUDINARY_TEST_FILE || '');
                     request(url, function (err, response, body) {
                         locals.cloudinary = {
@@ -79,7 +86,7 @@ module.exports = function(keystone) {
             // Test Azure Files
             function(callback) {
                 var azureFileConfig = keystone.get('azurefile config');
-                if (azureFileConfig) {
+                if (process.env.HEALTH_CHECK_AZURE_TEST_FILE && azureFileConfig) {
                     var blobService = azure.createBlobService();
                     var url = blobService.getUrl(azureFileConfig.container, process.env.HEALTH_CHECK_AZURE_TEST_FILE || '')
                     

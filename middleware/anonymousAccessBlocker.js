@@ -5,10 +5,13 @@ var rangeCheck = require('range_check');
 // Anonymous Access Blocker middleware
 module.exports = function() {
 
+    //process.env calls can be slow- store on init
+    const isEnabled = process.env.ANONYMOUS_ACCESS_BLOCKER_ENABLED === 'true';
+
     return function(req, res, next) {
         
         // Bail out if the anonymous access blocker is not enabled.  Do not handle anything under /keystone
-        if (process.env.ANONYMOUS_ACCESS_BLOCKER_ENABLED !== 'true' || req.path.lastIndexOf('/keystone', 0) === 0) {
+        if (!isEnabled || req.path.lastIndexOf('/keystone', 0) === 0) {
             return next();
         }
  

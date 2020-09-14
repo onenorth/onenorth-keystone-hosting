@@ -12,7 +12,7 @@ var Log1n = function() {
         console.log('keystone-hosting: Adding Keystone routes');
 
         keystone.pre('routes', healthcheck(keystone));
-        keystone.pre('routes', httpValidation(keystone));
+        keystone.pre('routes', httpValidation());
         keystone.pre('routes', log41n(keystone));
         keystone.pre('routes', anonymousAccessBlocker());
     };

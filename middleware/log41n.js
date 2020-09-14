@@ -8,15 +8,17 @@ var crypto = require('crypto'),
 // log41n middleware
 module.exports = function(keystone) {
 
+    // Setup Variables
+    const clientId = process.env.LOG41N_CLIENT_ID;
+    const clientSecret = process.env.LOG41N_CLIENT_SECRET;
+    const endpoint = process.env.LOG41N_ENDPOINT
+    const log41nPath = process.env.LOG41N_PATH;
+    const log41nEnabled = process.env.LOG41N_ENABLED;
+
     return function(req, res, next) {
 
-        // Setup Variables
-        var clientId = process.env.LOG41N_CLIENT_ID;
-        var clientSecret = process.env.LOG41N_CLIENT_SECRET;
-        var endpoint = process.env.LOG41N_ENDPOINT
-        
         // Bail out if the anonymous access blocker is not enabled.  Process only the LOG41N_PATH
-        if (process.env.LOG41N_ENABLED !== 'true' ||  req.path !== process.env.LOG41N_PATH ||
+        if (log41nEnabled !== 'true' ||  req.path !== log41nPath ||
             !(clientId) || !(clientSecret) || !(endpoint)) {
             return next();
         }

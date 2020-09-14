@@ -1,4 +1,10 @@
-module.exports = function(keystone) {
+'use strict';
+
+module.exports = function() {
+
+    const enabled = process.env.HTTP_VALIDATION_LISTEN;
+    const httpPath = process.env.HTTP_VALIDATION_PATH;
+    const httpBody = process.env.HTTP_VALIDATION_BODY;
 
     //register a route to a static (e.g. /.well-known/etc) response, if configured
     return function(req, res, next) {
@@ -9,9 +15,6 @@ module.exports = function(keystone) {
         //"http_body": "ca3-be794c5f757b468eba805d1a705e44f6"
         //ca3-be794c5f757b468eba805d1a705e44f6
         
-        var enabled = process.env.HTTP_VALIDATION_LISTEN;
-        var httpPath = process.env.HTTP_VALIDATION_PATH;
-        var httpBody = process.env.HTTP_VALIDATION_BODY;
 
         //ignore all requests except the exact match for /.well-known/etc...
         if(enabled !== 'true' || !httpPath || !httpBody || req.path !== httpPath) {

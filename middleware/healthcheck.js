@@ -15,11 +15,13 @@ module.exports = function(keystone) {
     //10 seconds
     var cache = new NodeCache({ stdTTL: 10, checkperiod: 1 });
 
+    const healchCheckDisabled = process.env.HEALTH_CHECK_ENABLED !== 'true';
+    const healthCheckPath = process.env.HEALTH_CHECK_PATH || '/healthcheck';
+
     return function(req, res, next) {
         // Bail out if the health check is not enabled.  Process only the HEALTH_CHECK_PATH.
         // Default to /healthcheck, if enabled.
-        var healthcheckPath = process.env.HEALTH_CHECK_PATH || '/healthcheck'
-        if (process.env.HEALTH_CHECK_ENABLED !== 'true' || req.path !== healthcheckPath) {
+        if (healchCheckDisabled || req.path !== healthCheckPath) {
             return next();
         }
         

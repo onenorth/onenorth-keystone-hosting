@@ -5,7 +5,7 @@ var async = require('async'),
     cloudinary = require('cloudinary'),
     fs = require('fs'),
     handlebars = require('handlebars'),
-    knox = require('knox'),
+    knox = require('knox-s3'),
     NodeCache = require('node-cache'),
     request = require('request');
 

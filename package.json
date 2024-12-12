@@ -19,7 +19,7 @@
   "author": "One North Interactive",
   "license": "MIT",
   "dependencies": {
-    "async": "^1.5.1",
+    "async": "^2.6.4",
     "azure-storage": "^0.7.0",
     "cloudinary": "^1.2.6",
     "handlebars": "^4.0.5",
